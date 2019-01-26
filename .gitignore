@@ -1,0 +1,8 @@
+.idea
+log.txt
+.idea/*
+venv
+VUE/vueJS/.idea
+VUE/vueJS/.idea/*
+migrations
+*.pyc
