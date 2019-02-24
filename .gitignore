@@ -4,5 +4,4 @@ log.txt
 venv
 VUE/vueJS/.idea
 VUE/vueJS/.idea/*
-migrations
 *.pyc
