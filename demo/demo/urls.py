@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url
 # from django.contrib import admin
+from django.views.static import serve
+
 
 import xadmin
 from .settings import MEDIA_ROOT
-from django.views.static import serve
+
+from goods.views_base import GoodsListView
+
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
+
+    # 商品列表页
+    url(r'goods/$', GoodsListView.as_view(), name='goods-list'),
 ]
