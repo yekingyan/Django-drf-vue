@@ -34,7 +34,7 @@ class GoodsCategoryBrand(models.Model):
     category = models.ForeignKey(GoodsCategory, null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
     name = models.CharField(default='', max_length=30, verbose_name='品牌名', help_text='品牌名')
     desc = models.TextField(default='', verbose_name='品牌描述', help_text='品牌描述')
-    image = models.ImageField(max_length=200, upload_to="brand/images")
+    image = models.ImageField(max_length=200, upload_to="brands/")
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
@@ -59,7 +59,8 @@ class Goods(models.Model):
     goods_desc = UEditorField(default='', imagePath='goods/images/', width=1000, height=300, filePath='goods/files/',
                               verbose_name='内容', help_text='内容')
     ship_free = models.BooleanField(default=True, verbose_name='是否承担运费', help_text='是否承担运费')
-    goods_front_image = models.ImageField(null=True, blank=True, upload_to="", verbose_name='封面图片',  help_text='封面图片')
+    goods_front_image = models.ImageField(null=True, blank=True, upload_to="goods/images/",
+                                          verbose_name='封面图片',  help_text='封面图片')
     is_new = models.BooleanField(default=False, verbose_name='是否新品', help_text='是否新品')
     is_hot = models.BooleanField(default=False, verbose_name='是否热销', help_text='是否热销')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
@@ -74,7 +75,7 @@ class Goods(models.Model):
 
 class GoodsImage(models.Model):
     goods = models.ForeignKey(Goods)
-    image = models.ImageField(null=True, blank=True, upload_to="", verbose_name='商品图片',  help_text='商品图片')
+    image = models.ImageField(null=True, blank=True, upload_to="goods/images/", verbose_name='商品图片',  help_text='商品图片')
     image_url = models.CharField(default='', max_length=300, verbose_name='图片url', help_text='图片url')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
@@ -88,7 +89,7 @@ class GoodsImage(models.Model):
 
 class Banner(models.Model):
     goods = models.ForeignKey(Goods, verbose_name='商品')
-    image = models.ImageField(null=True, blank=True, upload_to="banner", verbose_name='轮播图片')
+    image = models.ImageField(null=True, blank=True, upload_to="banner/", verbose_name='轮播图片')
     index = models.IntegerField(default=0, verbose_name='轮播顺序')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
