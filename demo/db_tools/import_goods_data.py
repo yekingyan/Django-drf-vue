@@ -5,7 +5,8 @@ import os
 
 
 pwd = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(pwd+"../")
+#  获取项目名的目录(当前在第二级 ../..)
+sys.path.append(pwd+"../..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "demo.settings")
 
 import django

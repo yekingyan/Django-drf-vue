@@ -76,7 +76,6 @@ class Goods(models.Model):
 class GoodsImage(models.Model):
     goods = models.ForeignKey(Goods)
     image = models.ImageField(null=True, blank=True, upload_to="goods/images/", verbose_name='商品图片',  help_text='商品图片')
-    image_url = models.CharField(default='', max_length=300, verbose_name='图片url', help_text='图片url')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
