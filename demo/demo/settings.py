@@ -137,9 +137,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# # rest_framework设置
-# # 可在源码的settings.py中找设置变量
-# REST_FRAMEWORK = {
-#     # 设置默认分页大小
-#     'PAGE_SIZE': 10,
-# }
+# rest_framework设置
+# 可在源码的settings.py中找设置变量
+REST_FRAMEWORK = {
+    # 设置默认分页大小
+    'PAGE_SIZE': 10,
+}
