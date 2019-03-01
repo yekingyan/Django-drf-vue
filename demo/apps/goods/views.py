@@ -5,6 +5,7 @@ from rest_framework import (
     mixins,
     generics,
     viewsets,
+    filters,
 )
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -26,7 +27,8 @@ class GoodsListViewSet(viewsets.GenericViewSet,
 
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
-    # 设置filter
-    filter_backends = (DjangoFilterBackend,)
+    # 设置filter，django-filter过滤，DRF的filter搜索
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filter_class = GoodsFiter
-
+    # 一个字段搜下面的所有参数，注意和filter区别
+    search_fields = ('^name', 'goods_brief', 'goods_desc')
