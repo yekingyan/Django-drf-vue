@@ -1,9 +1,22 @@
 from rest_framework import serializers
 
-from goods.models import Goods, GoodsCategory
+from goods.models import (
+    Goods,
+    GoodsCategory,
+)
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class GoodsCategorySerializer2(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsCategory
+        fields = '__all__'
+
+
+class GoodsCategorySerializer(serializers.ModelSerializer):
+    # sub_cat 是relate_name 一对多 反查
+    # 商品类别是嵌套的关系
+    sub_cat = GoodsCategorySerializer2(many=True)
+
     class Meta:
         model = GoodsCategory
         fields = '__all__'
@@ -11,7 +24,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class GoodsSerializer(serializers.ModelSerializer):
     # 用序列化的category替换默认的category
-    category = CategorySerializer()
+    category = GoodsCategorySerializer()
 
     class Meta:
         model = Goods

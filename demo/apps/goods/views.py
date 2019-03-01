@@ -9,8 +9,14 @@ from rest_framework import (
 )
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Goods
-from .serializers import GoodsSerializer
+from .models import (
+    Goods,
+    GoodsCategory,
+)
+from .serializers import (
+    GoodsSerializer,
+    GoodsCategorySerializer,
+)
 from .filters import GoodsFiter
 # Create your views here.
 
@@ -22,9 +28,11 @@ from .filters import GoodsFiter
 #     max_page_size = 100
 
 
-class GoodsListViewSet(viewsets.GenericViewSet,
-                       mixins.ListModelMixin,):
-
+class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+    """
+    list:
+        商品列表
+    """
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     # 设置filter，django-filter过滤，DRF的filter搜索
@@ -34,3 +42,15 @@ class GoodsListViewSet(viewsets.GenericViewSet,
     search_fields = ('^name', 'goods_brief', 'goods_desc')
     # 排序设置, 需要入参{'ordering': '-add_time'}
     ordering_fields = ('add_time',)
+
+
+class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+    """
+    list:
+        商品分类列表数据
+    dict:
+        /id
+        商品分类详情
+    """
+    queryset = GoodsCategory.objects.filter(category_type=1)
+    serializer_class = GoodsCategorySerializer

@@ -23,17 +23,18 @@ import xadmin
 from .settings import MEDIA_ROOT
 
 # from goods.views_base import GoodsListView
-from goods.views import GoodsListViewSet
+from goods.views import (
+    GoodsListViewSet,
+    GoodsCategoryViewSet,
+)
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-# 配置goods URL
-router.register(r'goods', GoodsListViewSet)
-# 等同下面
-# goods_list = GoodsListViewSet.as_view({
-#     'get': 'list',
-#     # 'post': 'create',
-# })
+# 商品列表
+router.register(r'goods', GoodsListViewSet, base_name='goods')
+
+# 商品类别列表
+router.register(r'categorys', GoodsCategoryViewSet, base_name='categorys')
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
