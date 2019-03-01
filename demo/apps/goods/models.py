@@ -17,8 +17,8 @@ class GoodsCategory(models.Model):
     code = models.CharField(default='', max_length=30, verbose_name='类别code', help_text='类别code')
     desc = models.TextField(default='', verbose_name='类别描述', help_text='类别描述')
     category_type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name='类别级别', help_text='类别级别')
-    parent_category = models.ForeignKey('self', null=True, blank=True, verbose_name='父级目录', help_text='父级目录',
-                                        related_name='sub_cat')
+    parent_category = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, verbose_name='父级目录',
+                                        help_text='父级目录',  related_name='sub_cat')
     is_tab = models.BooleanField(default=False, verbose_name='是否导航', help_text='是否导航')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
@@ -46,7 +46,8 @@ class GoodsCategoryBrand(models.Model):
 
 
 class Goods(models.Model):
-    category = models.ForeignKey(GoodsCategory, null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
+    category = models.ForeignKey(GoodsCategory, null=True, blank=True, on_delete=models.CASCADE,
+                                 verbose_name='商品类目', help_text='商品类目')
     goods_sn = models.CharField(default='', max_length=50, verbose_name='商品唯一货号', help_text='商品唯一货号')
     name = models.CharField(default='', max_length=30, verbose_name='商品名', help_text='商品名')
     click_num = models.IntegerField(default=0, verbose_name='点击数', help_text='点击数')

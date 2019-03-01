@@ -16,6 +16,8 @@ from goods.models import GoodsCategory
 
 from db_tools.data.category_data import row_data
 
+# goods = GoodsCategory.objects.filter(id__in=[i for i in range(480, 361, -1)])
+# [i.delete() for i in goods]
 
 
 for lev1_cat in row_data:
