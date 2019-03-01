@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'xadmin',
     'rest_framework',
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -142,4 +143,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 REST_FRAMEWORK = {
     # 设置默认分页大小
     'PAGE_SIZE': 10,
+    # 默认值，不用设置
+    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+
 }

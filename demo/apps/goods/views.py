@@ -6,9 +6,11 @@ from rest_framework import (
     generics,
     viewsets,
 )
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Goods
 from .serializers import GoodsSerializer
+from .filters import GoodsFiter
 # Create your views here.
 
 
@@ -24,10 +26,7 @@ class GoodsListViewSet(viewsets.GenericViewSet,
 
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
+    # 设置filter
+    filter_backends = (DjangoFilterBackend,)
+    filter_class = GoodsFiter
 
-    def get_queryset(self):
-        queryset = Goods.objects.all()
-        price_min = self.request.query_params.get('price_min', 0)
-        if price_min:
-            queryset = queryset.filter(shop_price__gte=int(price_min))
-        return queryset
