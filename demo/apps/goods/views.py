@@ -20,8 +20,14 @@ from .serializers import GoodsSerializer
 
 
 class GoodsListViewSet(viewsets.GenericViewSet,
-                    mixins.ListModelMixin,):
+                       mixins.ListModelMixin,):
 
-    # queryset 和 serializer_class 是必须的
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
+
+    def get_queryset(self):
+        queryset = Goods.objects.all()
+        price_min = self.request.query_params.get('price_min', 0)
+        if price_min:
+            queryset = queryset.filter(shop_price__gte=int(price_min))
+        return queryset
