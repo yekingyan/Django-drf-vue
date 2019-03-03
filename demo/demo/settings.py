@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'xadmin',
     'rest_framework',
     'django_filters',
+    'corsheaders',
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -57,11 +58,16 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # 要在CsrfViewMiddleware 之前
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# 允许跨域
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'demo.urls'
 

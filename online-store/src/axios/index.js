@@ -8,11 +8,18 @@ import store from '../store/store';
 import * as types from '../store/mutation-types';
 import router from '../router'
 
+import {configs} from './local_conf'
+import {local} from '../api/api'
+
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
     if (store.state.userInfo.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
       config.headers.Authorization = `JWT ${store.state.userInfo.token}`;
+    }
+    
+    if (!config.url.includes(local)) {
+      config.headers.imooc= configs.headers.imooc;
     }
     return config;
   },
@@ -23,7 +30,14 @@ axios.interceptors.request.use(
 
 // http response 拦截器
 axios.interceptors.response.use(
-  undefined,
+  res => {
+    console.log('res1', res)
+    res.data.results
+      ? res.data = res.data.results
+      : null
+    console.log('res12', res)
+    return res
+  },
   error => {
     let res = error.response;
     switch (res.status) {

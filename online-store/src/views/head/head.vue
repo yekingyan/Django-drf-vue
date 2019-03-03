@@ -71,12 +71,12 @@
                     </a>
                     <div class="main_cata" id="J_mainCata" v-show="showAllmenu">
                         <ul>
-                            <li class="first" v-for="(item,index) in allMenuLabel" @mouseover="overChildrenmenu(index)" @mouseout="outChildrenmenu(index)">
+                            <li class="first" v-for="(item,index) in allMenuLabel" @mouseover="overChildrenmenu(index)" @mouseout="outChildrenmenu(index)" :key="index">
                               <h3 style="background:url(../images/1449088788518670880.png) 20px center no-repeat;">
                                 <router-link :to="'/app/home/list/'+item.id">{{item.name}}</router-link> </h3>
                                 <div class="J_subCata" id="J_subCata" v-show="showChildrenMenu ===index"  style=" left: 215px; top: 0px;">
                                     <div class="J_subView" >
-                                      <div v-for="list in item.sub_cat">
+                                      <div v-for="(list, key) in item.sub_cat" :key="key">
                                         <dl>
                                           <dt>
                                             <router-link :to="'/app/home/list/'+list.id">{{list.name}}</router-link>
@@ -99,8 +99,8 @@
                 <li>
                     <router-link to="/app/home/index">首页</router-link>
                 </li>
-                <template v-for="(item,index) in allMenuLabel">
-                  <li>
+                <template v-for="(item,index) in allMenuLabel" >
+                  <li :key="index">
                     <div v-if="item.is_tab">
                       <router-link :to="'/app/home/list/'+item.id" >{{item.name}}</router-link>
                     </div>
@@ -115,7 +115,7 @@
                     <em class="num" id="hd_cartnum" style="visibility: visible;">{{goods_list.goods_list.length}}</em></router-link>
                         <div class="list" v-show="showShopCar">
                             <div class="data">
-                               <dl v-for="(item,index) in goods_list.goods_list">
+                               <dl v-for="(item,index) in goods_list.goods_list" :key="index">
                                 <dt><router-link :to="'/app/home/productDetail/'+item.goods.id" target = _blank><img :src="item.goods.goods_front_image"></router-link></dt>
                                 <dd>
                                   <h4><router-link :to="'/app/home/productDetail/'+item.goods.id" target = _blank>{{item.goods.name}}</router-link></h4>
@@ -213,8 +213,10 @@ export default {
           getCategory({
             params:{}
           }).then((response)=> {
-                    console.log(response)
-                    this.allMenuLabel = response.data
+                    console.log('response', response)
+                    response.data 
+                        ? this.allMenuLabel = response.data
+                        : this.allMenuLabel = []
                 })
                 .catch(function (error) {
                   console.log(error);
