@@ -31,11 +31,6 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
   res => {
-    console.log('res1', res)
-    res.data.results
-      ? res.data = res.data.results
-      : null
-    console.log('res12', res)
     return res
   },
   error => {

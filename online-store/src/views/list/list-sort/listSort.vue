@@ -25,7 +25,7 @@
   export default {
     data () {
         return {
-            cur: '-sold_num'
+            cur: ''
         };
     },
     components: {
@@ -48,6 +48,11 @@
     methods: {
         // 排序方式
         sortType (type) {
+            if ((this.cur.includes(type) || type.includes(this.cur)) && this.cur !== '') {
+                if (this.cur.includes('-')) {
+                    type = type.split('-')[1]
+                }
+            }
             this.cur = type;
             this.$emit('on-sort', type);
         }

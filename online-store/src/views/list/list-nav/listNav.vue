@@ -3,9 +3,9 @@
         <div class="cate-menu" id="cate-menu">
             <h3 v-if="isObject"><a href=""><strong>{{currentCategoryName}}</strong><i id="total_count">商品共{{proNum}}件</i></a></h3>
             <dl>
-                <template v-for="item in cateMenu">
-                    <dt>{{ item.name }}</dt>
-                    <dd v-for="subItem in item.sub_cat">
+                <template v-for="(item, key) in cateMenu">
+                    <dt :key="key">{{ item.name }}</dt>
+                    <dd v-for="(subItem, key) in item.sub_cat" :key="key">
                         <a @click="changeMenu(subItem.id)">{{ subItem.name}}</a>
                     </dd>
                 </template>

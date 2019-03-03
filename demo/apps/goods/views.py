@@ -41,7 +41,7 @@ class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     # 一个字段搜下面的所有参数，注意和filter区别
     search_fields = ('^name', 'goods_brief', 'goods_desc')
     # 排序设置, 需要入参{'ordering': '-add_time'}
-    ordering_fields = ('add_time',)
+    ordering_fields = ('add_time', 'shop_price', 'sold_num')
 
 
 class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
