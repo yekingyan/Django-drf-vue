@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 # from django.contrib import admin
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
-
+from rest_framework.authtoken import views
 
 import xadmin
 from .settings import MEDIA_ROOT
@@ -46,5 +46,7 @@ urlpatterns = [
 
     url(r'^', include(router.urls)),
 
-    url(r'^docs/', include_docs_urls(title='项目文档'))
+    url(r'^docs/', include_docs_urls(title='项目文档')),
+    # 获取token
+    url(r'api-token-auth/', views.obtain_auth_token),
 ]
