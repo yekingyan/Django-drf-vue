@@ -6,7 +6,17 @@ from goods.models import (
 )
 
 
+class GoodsCategorySerializer3(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsCategory
+        fields = '__all__'
+
+
 class GoodsCategorySerializer2(serializers.ModelSerializer):
+    # sub_cat 是relate_name 一对多 反查
+    # 商品类别是嵌套的关系
+    sub_cat = GoodsCategorySerializer3(many=True)
+
     class Meta:
         model = GoodsCategory
         fields = '__all__'

@@ -28,7 +28,7 @@ from .filters import GoodsFiter
 #     max_page_size = 100
 
 
-class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
     """
     list:
         商品列表
@@ -39,7 +39,7 @@ class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = GoodsFiter
     # 一个字段搜下面的所有参数，注意和filter区别
-    search_fields = ('^name', 'goods_brief', 'goods_desc')
+    search_fields = ('name', 'goods_brief', 'goods_desc')
     # 排序设置, 需要入参{'ordering': '-add_time'}
     ordering_fields = ('add_time', 'shop_price', 'sold_num')
 
@@ -52,5 +52,6 @@ class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixin
         /id
         商品分类详情
     """
-    queryset = GoodsCategory.objects.filter(category_type=1)
+    # 获取第一类
+    queryset = GoodsCategory.objects.filter(category_type=1).select_related()
     serializer_class = GoodsCategorySerializer
