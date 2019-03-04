@@ -7,6 +7,8 @@ from rest_framework import (
     viewsets,
     filters,
 )
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import (
@@ -55,3 +57,7 @@ class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixin
     # 获取第一类
     queryset = GoodsCategory.objects.filter(category_type=1).select_related()
     serializer_class = GoodsCategorySerializer
+
+    # 单个接口加token验证，token取用户信息，permission作权限限制
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
