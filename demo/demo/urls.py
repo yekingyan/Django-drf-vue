@@ -54,5 +54,5 @@ urlpatterns = [
     url(r'api-token-auth/', views.obtain_auth_token),
 
     # jwt的token认证模式
-    url(r'^api-jwt-auth/', obtain_jwt_token),
+    url(r'^login/', obtain_jwt_token),
 ]

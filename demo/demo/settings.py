@@ -160,3 +160,18 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
+
+# url 可以不加斜杠结尾
+APPEND_SLASH = False
+
+# 自定义用户验证
+AUTHENTICATION_BACKENDS = {
+    'users.views.CustomBackend',
+}
+
+# JWT 设置
+import datetime
+JWT_AUTH = {
+    # 过期时间
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+}
