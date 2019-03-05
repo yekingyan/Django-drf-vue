@@ -18,6 +18,8 @@ from django.conf.urls import url, include
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.authtoken import views
+from rest_framework.routers import DefaultRouter
+from rest_framework_jwt.views import obtain_jwt_token
 
 import xadmin
 from .settings import MEDIA_ROOT
@@ -27,7 +29,7 @@ from goods.views import (
     GoodsListViewSet,
     GoodsCategoryViewSet,
 )
-from rest_framework.routers import DefaultRouter
+
 
 router = DefaultRouter()
 # 商品列表
@@ -47,6 +49,10 @@ urlpatterns = [
     url(r'^', include(router.urls)),
 
     url(r'^docs/', include_docs_urls(title='项目文档')),
-    # 获取token
+
+    # drf 自带的token认证模式
     url(r'api-token-auth/', views.obtain_auth_token),
+
+    # jwt的token认证模式
+    url(r'^api-jwt-auth/', obtain_jwt_token),
 ]
