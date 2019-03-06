@@ -158,6 +158,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',  # jwt
+        'rest_framework.authentication.TokenAuthentication',  # token
     ),
 }
 
@@ -174,4 +175,6 @@ import datetime
 JWT_AUTH = {
     # 过期时间
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    # header value 前缀
+    'JWT_AUTH_HEADER_PREFIX': 'My_JWT',
 }
