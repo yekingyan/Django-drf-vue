@@ -157,12 +157,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',  # jwt
     ),
 }
 
 # url 可以不加斜杠结尾
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # 自定义用户验证
 AUTHENTICATION_BACKENDS = {

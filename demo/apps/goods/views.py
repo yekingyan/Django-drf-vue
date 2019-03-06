@@ -10,6 +10,7 @@ from rest_framework import (
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from .models import (
     Goods,
@@ -58,6 +59,6 @@ class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixin
     queryset = GoodsCategory.objects.filter(category_type=1).select_related()
     serializer_class = GoodsCategorySerializer
 
-    # 单个接口加token验证，token取用户信息，permission作权限限制
-    authentication_classes = (TokenAuthentication,)
+    # 单个接口加jwt验证，token取用户信息，permission作权限限制
+    authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
