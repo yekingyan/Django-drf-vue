@@ -15,7 +15,7 @@ import {local} from '../api/api'
 axios.interceptors.request.use(
   config => {
     if (store.state.userInfo.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
-      config.headers.Authorization = `JWT ${store.state.userInfo.token}`;
+      config.headers.Authorization = `My_JWT ${store.state.userInfo.token}`;
     }
     
     if (!config.url.includes(local)) {
@@ -39,10 +39,11 @@ axios.interceptors.response.use(
       case 401:
         // 返回 401 清除token信息并跳转到登录页面
         // store.commit(types.LOGOUT);
-        router.replace({
-          path: '/app/login',
-          query: {redirect: router.currentRoute.fullPath}
-        })
+        // router.replace({
+        //   path: '/app/login',
+        //   query: {redirect: router.currentRoute.fullPath}
+        // })
+        alert(401, res)
       case 403:
         console.log('您没有该操作权限');
         // alert('您没有该操作权限');
