@@ -20,11 +20,11 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9b9*+wqv+p^*5wk$u#-+3=3w)+#e#klzd5$_$2+4ow_^8c1h6l'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = '9b9*+wqv+p^*5wk$u#-+3=3w)+#e#klzd5$_$2+4ow_^8c1h6l'
+#
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -94,16 +94,16 @@ WSGI_APPLICATION = 'demo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'restvue',
-        'USER': 'root',
-        'PASSWORD': '12345678',
-        'HOST': '127.0.0.1',
-        'OPTIONS': {'init_command': 'SET storage_engine=INNODB;'}
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'restvue',
+#         'USER': 'root',
+#         'PASSWORD': '12345678',
+#         'HOST': '127.0.0.1',
+#         'OPTIONS': {'init_command': 'SET storage_engine=INNODB;'}
+#     }
+# }
 
 
 # Password validation
@@ -178,3 +178,8 @@ JWT_AUTH = {
     # header value 前缀
     'JWT_AUTH_HEADER_PREFIX': 'My_JWT',
 }
+
+try:
+    from .local_settings import *
+except ImportError as e:
+    pass

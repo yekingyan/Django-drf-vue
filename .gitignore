@@ -5,3 +5,4 @@ venv
 VUE/vueJS/.idea
 VUE/vueJS/.idea/*
 *.pyc
+local_settings.py
