@@ -11,7 +11,7 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 
-from .serializers import SmsSerializer
+from .serializers import SmsSerializer, UserRegisterSerializer
 from .models import VerifyCode
 from utils.yunpian import YunPian
 # Create your views here.
@@ -67,3 +67,10 @@ class SmsCodeViewSet(CreateModelMixin, viewsets.GenericViewSet):
                 'mobile': msg,
             }, status=status.HTTP_400_BAD_REQUEST, headers=headers)
 
+
+class UserViewSet(CreateModelMixin, viewsets.GenericViewSet):
+    """
+    用户
+    """
+    serializer_class = UserRegisterSerializer
+    queryset = User.objects.all()
