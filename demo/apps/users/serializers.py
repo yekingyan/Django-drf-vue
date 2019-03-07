@@ -69,7 +69,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
         if verify_records:
             last_code = verify_records[0]
-            print(last_code, code)
             if last_code.code != code:
                 raise serializers.ValidationError('验证码错误')
             elif five_mintes_ago > last_code.add_time:

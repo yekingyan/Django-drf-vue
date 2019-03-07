@@ -10,6 +10,7 @@ from rest_framework.mixins import CreateModelMixin
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
 
 from .serializers import SmsSerializer, UserRegisterSerializer
 from .models import VerifyCode
@@ -74,3 +75,22 @@ class UserViewSet(CreateModelMixin, viewsets.GenericViewSet):
     """
     serializer_class = UserRegisterSerializer
     queryset = User.objects.all()
+
+    def perform_create(self, serializer):
+        """返回user(原方法没有return)"""
+        return serializer.save()
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # 用user信息生成JWT返回
+        user = self.perform_create(serializer)
+        payload = jwt_payload_handler(user)
+        data = serializer.data
+        data['token'] = jwt_encode_handler(payload)
+        data['name'] = user.name if user.name else user.username
+        print(data, type(data))
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
