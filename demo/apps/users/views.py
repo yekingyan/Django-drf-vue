@@ -54,18 +54,16 @@ class SmsCodeViewSet(CreateModelMixin, viewsets.GenericViewSet):
         yun_pian = YunPian()
         code = self.generate_code()
         sms_status, msg = yun_pian.send_sms(code, mobile)
+
+        # 返回响应
         if sms_status:
             code_record = VerifyCode(code=code, mobile=mobile)
             code_record.save()
-            Response({
-                'mobile': msg,
+            return Response({
+                'mobile': mobile,
             }, status=status.HTTP_201_CREATED, headers=headers)
         else:
-            Response({
-                'mobile': mobile,
+            return Response({
+                'mobile': msg,
             }, status=status.HTTP_400_BAD_REQUEST, headers=headers)
 
-        # Return this if request method is not POST
-        return Response({
-                'mobile': msg,
-        }, status=status.HTTP_200_OK, headers=headers)
