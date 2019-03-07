@@ -89,11 +89,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
         return attrs
 
-    def create(self, validated_data):
-        """
-        让密码可以密文保存
-        """
-        user = super(UserRegisterSerializer, self).create(validated_data=validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+    # def create(self, validated_data):
+    #     """
+    #     让密码可以密文保存
+    #     """
+    #     user = super(UserRegisterSerializer, self).create(validated_data=validated_data)
+    #     user.set_password(validated_data['password'])
+    #     user.save()
+    #     return user
