@@ -16,7 +16,7 @@ class GoodsFiter(django_filters.rest_framework.FilterSet):
     class Meta:
         model = Goods
         # 需要完成匹配的放进fields中
-        fields = ['id']
+        fields = ['id', 'is_hot']
 
     def top_category_filter(self, queryset, name, value):
         q = Q(category__id=value) \
