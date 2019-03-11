@@ -75,7 +75,7 @@ class Goods(models.Model):
 
 
 class GoodsImage(models.Model):
-    goods = models.ForeignKey(Goods)
+    goods = models.ForeignKey(Goods, related_name='images')
     image = models.ImageField(null=True, blank=True, upload_to="goods/images/", verbose_name='商品图片',  help_text='商品图片')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
