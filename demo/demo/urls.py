@@ -30,6 +30,8 @@ from goods.views import (
     GoodsCategoryViewSet,
 )
 from users.views import SmsCodeViewSet, UserViewSet
+from user_operation.views import UserFavViewSet
+
 
 router = DefaultRouter()
 # 商品列表
@@ -43,6 +45,8 @@ router.register(r'codes', SmsCodeViewSet, base_name='codes')
 # 用户注册
 router.register(r'users', UserViewSet, base_name='users')
 
+# 用户收藏
+router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),

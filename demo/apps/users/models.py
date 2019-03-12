@@ -21,7 +21,7 @@ class UserProfile(AbstractUser):
 
     def __str__(self):
         # username 继承于 AbstractUser
-        return str(self.name)
+        return str(self.username)
 
 
 class VerifyCode(models.Model):
