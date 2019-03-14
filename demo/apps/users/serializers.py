@@ -57,7 +57,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, allow_blank=False, help_text='用户名', label='用户名',
                                      validators=[UniqueValidator(queryset=User.objects.all(), message='用户已存在')]
                                      )
-    password = serializers.CharField(label='密码', write_only=True)
+    password = serializers.CharField(label='密码', write_only=True, help_text='密码')
 
     class Meta:
         model = User

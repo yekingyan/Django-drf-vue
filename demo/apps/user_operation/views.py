@@ -15,7 +15,14 @@ class UserFavViewSet(
     mixins.RetrieveModelMixin,
 ):
     """
-    用户收藏
+    list:
+        用户收藏列表
+    create:
+        新增收藏
+    destroy:
+        删除收藏
+    retrieve:
+        收藏详情
     """
     serializer_class = UserFavSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)

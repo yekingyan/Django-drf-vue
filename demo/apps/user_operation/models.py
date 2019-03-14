@@ -11,7 +11,7 @@ User = get_user_model()
 
 class UserFav(models.Model):
     user = models.ForeignKey(User, verbose_name='用户')
-    goods = models.ForeignKey(Goods, verbose_name='商品')
+    goods = models.ForeignKey(Goods, verbose_name='商品', help_text='商品id')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:

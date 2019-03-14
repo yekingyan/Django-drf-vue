@@ -35,6 +35,8 @@ class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Re
     """
     list:
         商品列表
+    retrieve:
+        商品详情
     """
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
@@ -51,8 +53,7 @@ class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixin
     """
     list:
         商品分类列表数据
-    dict:
-        /id
+    retrieve:
         商品分类详情
     """
     # 获取第一类
