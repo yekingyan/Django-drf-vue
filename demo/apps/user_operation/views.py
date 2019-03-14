@@ -10,14 +10,17 @@ from utils.permissions import IsOwnerOrReadOnly
 
 
 class UserFavViewSet(
-        viewsets.GenericViewSet, mixins.CreateModelMixin,
-        mixins.DestroyModelMixin, mixins.ListModelMixin):
+    viewsets.GenericViewSet, mixins.CreateModelMixin,
+    mixins.DestroyModelMixin, mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+):
     """
     用户收藏
     """
     serializer_class = UserFavSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    lookup_field = 'goods_id'
 
     def get_queryset(self):
         # 只获取当前用户的收藏
