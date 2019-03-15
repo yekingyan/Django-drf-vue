@@ -73,7 +73,7 @@ class SmsCodeViewSet(CreateModelMixin, viewsets.GenericViewSet):
             }, status=status.HTTP_400_BAD_REQUEST, headers=headers)
 
 
-class UserViewSet(CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class UserViewSet(CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     create:
         创建用户
@@ -127,6 +127,7 @@ class UserViewSet(CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelM
         serializer_action = {
             'retrieve': UserDetailSerializer,
             'create': UserRegisterSerializer,
+            'update': UserDetailSerializer,
         }
         return serializer_action.get(self.action, UserDetailSerializer)
 

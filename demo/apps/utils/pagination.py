@@ -7,7 +7,6 @@ class SimplePage:
         """
         from collections import OrderedDict
         from rest_framework.response import Response
-        print('a',  self._paginator.page,  self._paginator.page.__dir__)
         return Response(OrderedDict([
             ('count', self._paginator.page.paginator.count),
             # ('next', self._paginator.get_next_link()),

@@ -71,7 +71,7 @@ export const getMessage = parmas => { return axios.post(`${local}/code/`, parmas
 export const getUserDetail = () => { return axios.get(`${local}/users/1/`) }
 
 //修改用户信息
-export const updateUserInfo = params => { return axios.patch(`${local}/users/1/`, params) }
+export const updateUserInfo = params => { return axios.put(`${local}/users/1/`, params) }
 
 
 //获取订单
