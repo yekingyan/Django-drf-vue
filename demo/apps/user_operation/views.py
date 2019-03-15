@@ -5,7 +5,7 @@ from rest_framework.authentication import SessionAuthentication
 
 
 from .models import UserFav
-from .serializers import UserFavSerializer
+from .serializers import UserFavSerializer, UserFavDetailSerializer
 from utils.permissions import IsOwnerOrReadOnly
 from utils.pagination import SimplePage
 
@@ -23,9 +23,8 @@ class UserFavViewSet(
     destroy:
         删除收藏
     retrieve:
-        收藏详情
+        判断某个商品是否已经收藏
     """
-    serializer_class = UserFavSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
     lookup_field = 'goods_id'
@@ -34,4 +33,11 @@ class UserFavViewSet(
         # 只获取当前用户的收藏
         return UserFav.objects.filter(user=self.request.user)
 
-
+    def get_serializer_class(self):
+        serializer_map = {
+            'retrieve': UserFavDetailSerializer,
+            'list': UserFavDetailSerializer,
+            'create': UserFavSerializer,
+            'destroy': UserFavSerializer,
+        }
+        return serializer_map.get(self.action, UserFavSerializer)

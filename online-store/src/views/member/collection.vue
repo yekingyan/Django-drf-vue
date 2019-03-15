@@ -14,7 +14,7 @@
                             <th width="30%" bgcolor="#ffffff">价格</th>
                             <th width="35%" bgcolor="#ffffff">操作</th>
                         </tr>
-                        <tr v-for="(item,index) in collections">
+                        <tr v-for="(item,index) in collections" :key=index>
                             <td bgcolor="#ffffff">
                                 <router-link :to="'/app/home/productDetail/'+item.goods.id" class="f6" target="_blank">{{item.goods.name}}</router-link>
                             </td>
@@ -103,7 +103,7 @@
         methods: {
             getCollection () { //获取收藏列表
               getAllFavs().then((response)=> {
-                    this.collections = response.data;
+                    this.collections = response.data.results;
                 }).catch(function (error) {
                     console.log(error);
                 });
