@@ -7,10 +7,11 @@ from rest_framework.authentication import SessionAuthentication
 from .models import UserFav
 from .serializers import UserFavSerializer
 from utils.permissions import IsOwnerOrReadOnly
+from utils.pagination import SimplePage
 
 
 class UserFavViewSet(
-    viewsets.GenericViewSet, mixins.CreateModelMixin,
+    SimplePage, viewsets.GenericViewSet, mixins.CreateModelMixin,
     mixins.DestroyModelMixin, mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
 ):
