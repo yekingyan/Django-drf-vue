@@ -9,7 +9,7 @@
                     <div class="blank"></div>
                     <div class="message-all">
                         <ul>
-                            <li v-for="(item,index) in messageAll">
+                            <li v-for="(item,index) in messageAll" :key="index">
                                 <div>
                                     <span v-if="item.message_type===1">留言：</span>
                                     <span v-if="item.message_type===2">投诉：</span>
@@ -24,7 +24,7 @@
                                 </div>
                                 <div>
                                     <a @click="deleteMessage(index, item.id)">删除</a>
-                                    <a :href="(item.file)">查看上传的文件</a>
+                                    <a v-if="item.file" :href="(item.file)">查看上传的文件</a>
 
                                 </div>
 
@@ -148,15 +148,13 @@
                 formData.append('message_type',this.message_type);
                 addMessage(formData).then((response)=> {
                     this.getMessage();
-
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
             getMessage () { //获取留言
               getMessages().then((response)=> {
-                    console.log(response.data);
-                    this.messageAll = response.data;
+                    this.messageAll = response.data.results;
                 }).catch(function (error) {
                     console.log(error);
                 });

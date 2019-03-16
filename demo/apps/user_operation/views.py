@@ -4,8 +4,8 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
 
 
-from .models import UserFav
-from .serializers import UserFavSerializer, UserFavDetailSerializer
+from .models import UserFav, UserLeavingMessage
+from .serializers import UserFavSerializer, UserFavDetailSerializer, LeavingMessageSerializer
 from utils.permissions import IsOwnerOrReadOnly
 from utils.pagination import SimplePage
 
@@ -41,3 +41,24 @@ class UserFavViewSet(
             'destroy': UserFavSerializer,
         }
         return serializer_map.get(self.action, UserFavSerializer)
+
+
+class LeavingMessageViewSet(
+    viewsets.GenericViewSet, mixins.ListModelMixin,
+    mixins.DestroyModelMixin, mixins.CreateModelMixin,
+):
+    """
+    list:
+        留言列表
+    create:
+        新增留言
+    destroy:
+        删除留言
+    """
+    serializer_class = LeavingMessageSerializer
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    def get_queryset(self):
+        return UserLeavingMessage.objects.filter(user=self.request.user)
+

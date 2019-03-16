@@ -3,7 +3,7 @@ from django.contrib.auth import get_user
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .models import UserFav
+from .models import UserFav, UserLeavingMessage
 from goods.serializers import GoodsSerializer
 
 
@@ -34,3 +34,19 @@ class UserFavSerializer(serializers.ModelSerializer):
                 message='已经收藏'
             )
         ]
+
+
+class LeavingMessageSerializer(serializers.ModelSerializer):
+    """
+    用户留言serializer
+    """
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+    add_time = serializers.DateTimeField(read_only=True, format='%Y-%m-%d %H:%M:%S')  # 只返回不提交
+
+    class Meta:
+        model = UserLeavingMessage
+        fields = ('id', 'user', 'message_type', 'subject', 'message', 'file', 'add_time')
+
+
