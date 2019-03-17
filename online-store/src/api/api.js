@@ -94,13 +94,13 @@ export const addMessage = params => {return axios.post(`${local}/messages/`, par
 export const delMessages = messageId => {return axios.delete(`${local}/messages/`+messageId+'/')}
 
 //添加收货地址
-export const addAddress = params => {return axios.post(`${host}/address/`, params)}
+export const addAddress = params => {return axios.post(`${local}/address/`, params)}
 
 //删除收货地址
-export const delAddress = addressId => {return axios.delete(`${host}/address/`+addressId+'/')}
+export const delAddress = addressId => {return axios.delete(`${local}/address/`+addressId+'/')}
 
 //修改收货地址
-export const updateAddress = (addressId, params) => {return axios.patch(`${host}/address/`+addressId+'/', params)}
+export const updateAddress = (addressId, params) => {return axios.patch(`${local}/address/`+addressId+'/', params)}
 
 //获取收货地址
-export const getAddress = () => {return axios.get(`${host}/address/`)}
+export const getAddress = () => {return axios.get(`${local}/address/`)}

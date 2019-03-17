@@ -34,6 +34,7 @@ from user_operation.views import (
     UserFavViewSet, LeavingMessageViewSet,
     AddressViewSet,
 )
+from trade.views import ShoppingCartViewSet
 
 
 router = DefaultRouter()
@@ -54,6 +55,8 @@ router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
 router.register(r'messages', LeavingMessageViewSet, base_name='messages')
 # 收货地址
 router.register(r'address', AddressViewSet, base_name='address')
+# 购物车
+router.register(r'shopingcarts', ShoppingCartViewSet, base_name='shopingcarts')
 
 
 urlpatterns = [

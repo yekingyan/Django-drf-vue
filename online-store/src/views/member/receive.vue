@@ -6,7 +6,7 @@
                     <div class="userCenterBox boxCenterList clearfix" style="_height:1%;">
                         <h5><span>收货人信息</span></h5>
                         <div class="blank"></div>
-                        <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" v-for="(item, index) in receiveInfoArr">
+                        <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" v-for="(item, index) in receiveInfoArr" :key="index">
                             <tbody>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">配送区域：</td>
@@ -171,7 +171,7 @@ import {getAddress, addAddress, updateAddress, delAddress} from '../../api/api'
             getReceiveInfo() { //获取收件人信息
                 getAddress().then((response)=> {
                     console.log(response.data);
-                    this.receiveInfoArr = response.data;
+                    this.receiveInfoArr = response.data.results;
 
                 }).catch(function (error) {
                     console.log(error);
