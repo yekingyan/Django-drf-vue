@@ -162,7 +162,7 @@ REST_FRAMEWORK = {
 }
 
 # url 可以不加斜杠结尾
-APPEND_SLASH = True
+# APPEND_SLASH = True  # 有个坑，重定向只用get方法
 
 # 自定义用户验证
 AUTHENTICATION_BACKENDS = {
