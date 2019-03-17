@@ -35,13 +35,13 @@ export const getGoods = params => { return axios.get(`${local}/goods/`, { params
 export const getGoodsDetail = goodId => { return axios.get(`${local}/goods/${goodId}`+'/') }
 
 //获取购物车商品
-export const getShopCarts = params => { return axios.get(`${host}/shopcarts/`) }
+export const getShopCarts = params => { return axios.get(`${local}/shopcarts/`) }
 // 添加商品到购物车
-export const addShopCart = params => { return axios.post(`${host}/shopcarts/`, params) }
+export const addShopCart = params => { return axios.post(`${local}/shopcarts/`, params) }
 //更新购物车商品信息
-export const updateShopCart = (goodsId, params) => { return axios.patch(`${host}/shopcarts/`+goodsId+'/', params) }
+export const updateShopCart = (goodsId, params) => { return axios.patch(`${local}/shopcarts/`+goodsId+'/', params) }
 //删除某个商品的购物记录
-export const deleteShopCart = goodsId => { return axios.delete(`${host}/shopcarts/`+goodsId+'/') }
+export const deleteShopCart = goodsId => { return axios.delete(`${local}/shopcarts/`+goodsId+'/') }
 
 //收藏
 export const addFav = params => { return axios.post(`${local}/userfavs/`, params) }

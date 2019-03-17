@@ -109,12 +109,12 @@
     created () {
       // 请求购物车商品
       getShopCarts().then((response)=> {
-        console.log(response.data)
+        console.log(12, response.data.results)
         // 更新store数据
         //this.goods_list = response.data;
         var totalPrice = 0
-        this.goods.goods_list = response.data;
-        response.data.forEach(function(entry) {
+        this.goods.goods_list = response.data.results;
+        response.data.results.forEach(function(entry) {
           totalPrice += entry.goods.shop_price*entry.nums
           console.log(entry.goods.shop_price);
         });
@@ -210,7 +210,7 @@
       },
       getAllAddr () { //获得所有配送地址
         getAddress().then((response)=> {
-          this.addrInfo = response.data;
+          this.addrInfo = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });
