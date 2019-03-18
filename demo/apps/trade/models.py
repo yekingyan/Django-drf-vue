@@ -27,11 +27,11 @@ class OrderInfo(models.Model):
     ORDER_STATUS = (
         {'success', '成功'},
         {'cancel', '取消'},
-        {'unpaid', '待支付'},
+        {'paying', '待支付'},
     )
 
     user = models.ForeignKey(User, verbose_name='用户')
-    order_sn = models.CharField(max_length=30, unique=True, verbose_name='订单号')
+    order_sn = models.CharField(max_length=30, unique=True, null=True, blank=True, verbose_name='订单号')
     trade_no = models.CharField(max_length=100, null=True, blank=True, unique=True, verbose_name='交易号')
     pay_status = models.CharField(max_length=10, choices=ORDER_STATUS, verbose_name='订单状态')
     post_script = models.CharField(max_length=200, verbose_name='订单留言')
