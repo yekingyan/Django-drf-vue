@@ -33,8 +33,8 @@ class OrderInfo(models.Model):
     user = models.ForeignKey(User, verbose_name='用户')
     order_sn = models.CharField(max_length=30, unique=True, null=True, blank=True, verbose_name='订单号')
     trade_no = models.CharField(max_length=100, null=True, blank=True, unique=True, verbose_name='交易号')
-    pay_status = models.CharField(max_length=10, choices=ORDER_STATUS, verbose_name='订单状态')
-    post_script = models.CharField(max_length=200, verbose_name='订单留言')
+    pay_status = models.CharField(max_length=10, choices=ORDER_STATUS, default='paying', verbose_name='订单状态')
+    post_script = models.CharField(max_length=200,  null=True, blank=True, verbose_name='订单留言')
     order_mount = models.FloatField(default=0.0, verbose_name='订单金额')
     pay_time = models.DateTimeField(null=True, blank=True, verbose_name='支付时间')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
@@ -53,7 +53,7 @@ class OrderInfo(models.Model):
 
 
 class OrderGoods(models.Model):
-    order = models.ForeignKey(OrderInfo, verbose_name='订单')
+    order = models.ForeignKey(OrderInfo, verbose_name='订单', related_name='orderGoods')
     goods = models.ForeignKey(Goods, verbose_name='商品')
     goods_nums = models.IntegerField(default=0, verbose_name='商品数量')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')

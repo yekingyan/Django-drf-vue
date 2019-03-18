@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 from goods.models import Goods
 from goods.serializers import GoodsSerializer
-from .models import ShoppingCart, OrderInfo
+from .models import ShoppingCart, OrderInfo, OrderGoods
 
 
 class ShopCartDetailSerializer(serializers.ModelSerializer):
@@ -50,6 +50,26 @@ class ShopCartSerializer(serializers.Serializer):
         instance.nums = validated_data['nums']
         instance.save()
         return instance
+
+
+class OrderGoodsSerializer(serializers.ModelSerializer):
+    goods = GoodsSerializer(many=False)
+
+    class Meta:
+        model = OrderGoods
+        fields = '__all__'
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    orderGoods = OrderGoodsSerializer(many=True)
+    add_time = serializers.DateTimeField(read_only=True)
+    order_sn = serializers.CharField(read_only=True)
+    trade_no = serializers.CharField(read_only=True)
+    pay_status = serializers.CharField(read_only=True)
+    pay_time = serializers.CharField(read_only=True)
+    class Meta:
+        model = OrderInfo
+        fields = '__all__'
 
 
 class OrderInfoSerializer(serializers.ModelSerializer):

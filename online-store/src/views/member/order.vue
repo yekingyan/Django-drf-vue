@@ -15,7 +15,7 @@
                                     <td bgcolor="#ffffff">订单状态</td>
                                     <td bgcolor="#ffffff">操作</td>
                                 </tr>
-                                <tr v-for="item in orders">
+                                <tr v-for="(item, index) in orders" :key='index'>
                                     <td align="center" bgcolor="#ffffff"><a class="f6" @click="goDetail(item.id)">{{item.order_sn}}</a></td>
                                     <td align="center" bgcolor="#ffffff">{{item.add_time}}</td>
                                     <td align="right" bgcolor="#ffffff">￥{{item.order_mount}}元</td>
@@ -80,7 +80,7 @@
         methods: {
             getOrder () {
                 getOrders().then((response)=> {
-                    this.orders = response.data;
+                    this.orders = response.data.results;
                 }).catch(function (error) {
                     console.log(error);
                 });

@@ -4,7 +4,10 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
 
 from .models import ShoppingCart, OrderInfo, OrderGoods
-from .serializers import ShopCartSerializer, ShopCartDetailSerializer, OrderInfoSerializer
+from .serializers import (
+    OrderDetailSerializer, ShopCartSerializer,
+    ShopCartDetailSerializer, OrderInfoSerializer,
+)
 
 from utils.permissions import IsOwnerOrReadOnly
 # Create your views here.
@@ -46,6 +49,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         删除订单
     create:
         新增订单
+    retrieve:
+        查看订单详情
     """
     serializer_class = OrderInfoSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
@@ -53,6 +58,13 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return OrderInfo.objects.filter(user=self.request.user)
+
+    def get_serializer_class(self):
+        serializer_action = {
+            'retrieve': OrderDetailSerializer,
+            'list': OrderInfoSerializer,
+        }
+        return serializer_action.get(self.action, OrderInfoSerializer)
 
     def perform_create(self, serializer):
         """

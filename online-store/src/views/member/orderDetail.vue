@@ -36,14 +36,14 @@
                                 <th width="9%" align="center" bgcolor="#ffffff">购买数量</th>
                                 <th width="20%" align="center" bgcolor="#ffffff">小计</th>
                             </tr>
-                            <tr v-for="item in orderInfo.goods">
+                            <tr v-for="(item, index) in orderInfo.orderGoods" :key="index">
                                 <td bgcolor="#ffffff">
                                     <router-link  :to="'/app/home/productDetail/'+item.id" class="f6">{{item.goods.name}}</router-link>
                                     <!-- <a href="" target="_blank" class="f6">{{item.name}}</a> -->
                                 </td>
                                 <td align="center" bgcolor="#ffffff">￥{{item.goods.shop_price}}元</td>
-                                <td align="center" bgcolor="#ffffff">{{item.goods_num}}</td>
-                                <td align="center" bgcolor="#ffffff">￥{{item.goods.shop_price*item.goods_num}}元</td>
+                                <td align="center" bgcolor="#ffffff">{{item.goods_nums}}</td>
+                                <td align="center" bgcolor="#ffffff">￥{{item.goods.shop_price*item.goods_nums}}元</td>
                             </tr>
                             <tr>
                                 <td colspan="8" bgcolor="#ffffff" align="right">
@@ -137,9 +137,10 @@
             getOrderInfo () { //获取订单信息
               getOrderDetail(this.orderId).then((response)=> {
                     this.orderInfo = response.data;
+                    console.log(12, this.orderInfo)
                     var totalPrice = 0
-                    response.data.goods.forEach(function(entry) {
-                      totalPrice += entry.goods_num*entry.goods.shop_price
+                    response.data.orderGoods.forEach(function(entry) {
+                      totalPrice += entry.goods_nums*entry.goods.shop_price
                     });
                     this.totalPrice = totalPrice
 
