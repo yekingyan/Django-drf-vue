@@ -4,6 +4,7 @@ from goods.models import (
     Goods,
     GoodsCategory,
     GoodsImage,
+    Banner,
 )
 
 
@@ -55,3 +56,10 @@ class GoodsSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # 写入满足上面类变量的validate_data到数据库
         return Goods.objects.create(**validated_data)
+
+
+class BannerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Banner
+        fields = '__all__'

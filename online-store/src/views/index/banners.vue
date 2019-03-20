@@ -46,7 +46,7 @@
           .then((response)=> {
             console.log(response)
             //跳转到首页页response.body面
-            this.banners = response.data
+            this.banners = response.data.results
           })
           .catch(function (error) {
             console.log(error);

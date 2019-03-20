@@ -12,7 +12,7 @@ export const queryCategorygoods = params => { return axios.get(`${host}/indexgoo
 export const newGoods = params => { return axios.get(`${host}/newgoods/`) }
 
 //获取轮播图
-export const bannerGoods = params => { return axios.get(`${host}/banners/`) }
+export const bannerGoods = params => { return axios.get(`${local}/banners/`) }
 
 //获取商品类别信息
 export const getCategory = params => {

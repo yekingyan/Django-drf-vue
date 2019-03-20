@@ -28,6 +28,7 @@ from .settings import MEDIA_ROOT
 from goods.views import (
     GoodsListViewSet,
     GoodsCategoryViewSet,
+    BannerViewSet,
 )
 from users.views import SmsCodeViewSet, UserViewSet
 from user_operation.views import (
@@ -37,11 +38,13 @@ from user_operation.views import (
 from trade.views import ShoppingCartViewSet, OrderViewSet
 
 router = DefaultRouter()
+
 # 商品列表
 router.register(r'goods', GoodsListViewSet, base_name='goods')
-
 # 商品类别列表
 router.register(r'categorys', GoodsCategoryViewSet, base_name='categorys')
+# 轮播图
+router.register(r'banners', BannerViewSet, base_name='banners')
 
 # 验证码
 router.register(r'codes', SmsCodeViewSet, base_name='codes')

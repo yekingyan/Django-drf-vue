@@ -15,10 +15,12 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from .models import (
     Goods,
     GoodsCategory,
+    Banner,
 )
 from .serializers import (
     GoodsSerializer,
     GoodsCategorySerializer,
+    BannerSerializer,
 )
 from .filters import GoodsFiter
 # Create your views here.
@@ -64,3 +66,18 @@ class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixin
     authentication_classes = (JSONWebTokenAuthentication,)
     # permission作权限限制
     permission_classes = (IsAuthenticated,)
+
+
+# class HotSearchViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+#     """
+#     list:
+#         获取热搜词列表
+#     """
+#     queryset =
+
+class BannerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    获取轮播图列表
+    """
+    serializer_class = BannerSerializer
+    queryset = Banner.objects.all().order_by('index')
