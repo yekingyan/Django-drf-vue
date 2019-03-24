@@ -31,7 +31,7 @@ class GoodsCategory(models.Model):
 
 
 class GoodsCategoryBrand(models.Model):
-    category = models.ForeignKey(GoodsCategory, null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
+    category = models.ForeignKey(GoodsCategory, related_name='brands', null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
     name = models.CharField(default='', max_length=30, verbose_name='品牌名', help_text='品牌名')
     desc = models.TextField(default='', verbose_name='品牌描述', help_text='品牌描述')
     image = models.ImageField(max_length=200, upload_to="brands/")
@@ -72,6 +72,18 @@ class Goods(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class IndexAd(models.Model):
+    category = models.ForeignKey(GoodsCategory, related_name='indexAd', verbose_name="商品类目", help_text="商品类目")
+    goods = models.ForeignKey(Goods, related_name='indexAd', verbose_name='商品', help_text="商品类目")
+
+    class Meta:
+        verbose_name = '首页商品类别广告'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return str(self.goods.name)
 
 
 class GoodsImage(models.Model):

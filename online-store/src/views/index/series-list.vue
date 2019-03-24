@@ -1,6 +1,6 @@
 <template>
 <div>
-<div class="series_list" v-for="items in list">
+<div class="series_list" v-for="(items, index) in list" :key="index">
     <div class="series_box cle">
             <div class="series_info">
                 <div class="series_name name_hufu">
@@ -8,7 +8,7 @@
                 </div>
                 <ul class="brand">
 
-                    <li v-for="brand in items.brands">
+                    <li v-for="(brand, index) in items.brands" :key="index">
                        <router-link :to="'/app/home/list/'+brand.id" >
                        <a :title="brand.name" target="_blank">
                             <img :src="brand.image" :alt="brand.name" style="display: inline;">
@@ -16,14 +16,14 @@
                         </router-link>
                     </li>
                 </ul>
-                <div class="brand_cata">
-                   <router-link  v-for="label in items.sub_cat" :key="label.id" :title="label.name"   :to="'/app/home/list/'+label.id"  >
+                <div class="brand_cata" v-if="items.sub_cat">
+                   <router-link  v-for="(label, index) in items.sub_cat" :key="index" :title="label.name"   :to="'/app/home/list/'+label.id"  >
                     {{label.name}}
                     </router-link>
                 </div>
 
             </div>
-                <div class="series_pic">
+                <div class="series_pic" v-if="items.ad_goods">
                     <router-link :to="'/app/home/productDetail/'+items.ad_goods.id" target = _blank>
                        <img :src="items.ad_goods.goods_front_image" width="340" height="400">
                     </router-link>
@@ -31,7 +31,7 @@
 
                 <div class="pro_list">
                     <ul class="cle">
-                        <li v-for="list in items.goods">
+                        <li v-for="(list, index) in items.goods" :key="index">
                              <router-link :to="'/app/home/productDetail/'+list.id" target = _blank>
                                 <p class="pic">
                                  <img :src="list.goods_front_image" style="display: inline;">
@@ -63,7 +63,7 @@
                 .then((response)=> {
                    //跳转到首页页response.body面
                   console.log(response)
-                    this.list = response.data
+                    this.list = response.data.results
                 })
                 .catch(function (error) {
                   console.log(error);

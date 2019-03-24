@@ -29,6 +29,7 @@ from goods.views import (
     GoodsListViewSet,
     GoodsCategoryViewSet,
     BannerViewSet,
+    IndexCategoryViewSet,
 )
 from users.views import SmsCodeViewSet, UserViewSet
 from user_operation.views import (
@@ -45,6 +46,8 @@ router.register(r'goods', GoodsListViewSet, base_name='goods')
 router.register(r'categorys', GoodsCategoryViewSet, base_name='categorys')
 # 轮播图
 router.register(r'banners', BannerViewSet, base_name='banners')
+# 首页商品系列数据
+router.register(r'indexGoods', IndexCategoryViewSet, base_name='indexGoods')
 
 # 验证码
 router.register(r'codes', SmsCodeViewSet, base_name='codes')

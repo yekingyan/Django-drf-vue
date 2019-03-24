@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from rest_framework import serializers
 
 from goods.models import (
@@ -5,6 +7,8 @@ from goods.models import (
     GoodsCategory,
     GoodsImage,
     Banner,
+    GoodsCategoryBrand,
+    IndexAd,
 )
 
 
@@ -62,4 +66,39 @@ class BannerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Banner
+        fields = '__all__'
+
+
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsCategoryBrand
+        fields = '__all__'
+
+
+class IndexAdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IndexAd
+        fields = '__all__'
+
+
+class IndexCategorySerializer(serializers.ModelSerializer):
+    brands = BrandSerializer(many=True)
+    # 商品类别有三层，商品挂在最下层的类别中
+    goods = serializers.SerializerMethodField()
+    sub_cat = GoodsCategorySerializer2(many=True)
+    indexAd = IndexAdSerializer(many=True)
+
+    def get_goods(self, obj):
+        all_goods = Goods.objects.filter(
+            Q(category_id=obj.id) | Q(category__parent_category_id=obj.id)
+            | Q(category__parent_category__parent_category_id=obj.id))
+        goods_serializer = GoodsSerializer(all_goods, many=True)
+        return goods_serializer.data
+
+    # def get_ad_goods(self, obj):
+    #     goods_json = {}
+    #     ad_goods = IndexAd.objects.filter(category_id=obj.id)
+
+    class Meta:
+        model = GoodsCategory
         fields = '__all__'

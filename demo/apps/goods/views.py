@@ -21,6 +21,7 @@ from .serializers import (
     GoodsSerializer,
     GoodsCategorySerializer,
     BannerSerializer,
+    IndexCategorySerializer,
 )
 from .filters import GoodsFiter
 # Create your views here.
@@ -81,3 +82,12 @@ class BannerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     serializer_class = BannerSerializer
     queryset = Banner.objects.all().order_by('index')
+
+
+class IndexCategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+        首页商品分页数据列表
+    """
+    serializer_class = IndexCategorySerializer
+    queryset = GoodsCategory.objects.filter(is_tab=True, name__in=['生鲜食品', '酒水饮料'])

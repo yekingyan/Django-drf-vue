@@ -6,7 +6,7 @@ let host = 'http://shop.projectsedu.com';
 export let local = 'http://127.0.0.1:3333'
 
 //获取商品类别信息
-export const queryCategorygoods = params => { return axios.get(`${host}/indexgoods/`) }
+export const queryCategorygoods = params => { return axios.get(`${local}/indexGoods/`) }
 
 //获取首页中的新品
 export const newGoods = params => { return axios.get(`${host}/newgoods/`) }
