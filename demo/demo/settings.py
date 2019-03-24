@@ -178,6 +178,11 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'My_JWT',
 }
 
+# drf-extensions 缓存过期时间, 默认15分钟
+REST_FRAMEWORK_EXTENSIONS = {
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 3
+}
+
 try:
     from .local_settings import *
 except ImportError as e:

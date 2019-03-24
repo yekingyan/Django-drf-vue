@@ -11,6 +11,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from .models import (
     Goods,
@@ -34,7 +35,9 @@ from .filters import GoodsFiter
 #     max_page_size = 100
 
 
-class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+class GoodsListViewSet(
+    CacheResponseMixin, viewsets.GenericViewSet,
+    mixins.ListModelMixin, mixins.RetrieveModelMixin):
     """
     list:
         商品列表
