@@ -51,6 +51,15 @@ class GoodsListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Re
     # 排序设置, 需要入参{'ordering': '-add_time'}
     ordering_fields = ('add_time', 'shop_price', 'sold_num')
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # 加入点击数纪录
+        instance.click_num += 1
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 
 class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
     """

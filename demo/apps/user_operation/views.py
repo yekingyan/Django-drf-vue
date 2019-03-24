@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
-
+from rest_framework.response import Response
 
 from .models import UserFav, UserLeavingMessage, UserAddress
 from .serializers import (
@@ -44,6 +44,15 @@ class UserFavViewSet(
             'destroy': UserFavSerializer,
         }
         return serializer_map.get(self.action, UserFavSerializer)
+
+    def perform_create(self, serializer):
+        """
+        收藏数加1
+        """
+        instance = serializer.save()
+        goods = instance.goods
+        goods.fav_num += 1
+        goods.save()
 
 
 class LeavingMessageViewSet(
