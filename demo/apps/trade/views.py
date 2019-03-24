@@ -40,6 +40,36 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
         }
         return serializer_action.get(self.action, ShopCartDetailSerializer)
 
+    def perform_create(self, serializer):
+        """
+        加入购物车，商品库存相应减少
+        """
+        shop_cat = serializer.save()
+        goods = shop_cat.goods
+        goods.goods_num -= shop_cat.nums
+        goods.save()
+
+    def perform_destroy(self, instance):
+        """
+        移出购物车，商品库存相应增加
+        """
+        goods = instance.goods
+        goods.goods_num += instance.nums
+        goods.save()
+        instance.delete()
+
+    def perform_update(self, serializer):
+        """
+        修改购物车数量
+        """
+        existed_record = ShoppingCart.objects.get(id=serializer.instance.id)
+        existed_num = existed_record.nums
+        saved_record = serializer.save()
+        nums = existed_num - saved_record.nums
+        goods = saved_record.goods
+        goods.nums += nums
+        goods.save()
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     """
