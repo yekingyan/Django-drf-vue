@@ -180,7 +180,18 @@ JWT_AUTH = {
 
 # drf-extensions 缓存过期时间, 默认15分钟
 REST_FRAMEWORK_EXTENSIONS = {
-    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 3
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 10
+}
+
+# redis 缓存
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
 
 try:

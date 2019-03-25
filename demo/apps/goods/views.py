@@ -64,7 +64,10 @@ class GoodsListViewSet(
         return Response(serializer.data)
 
 
-class GoodsCategoryViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
+class GoodsCategoryViewSet(
+    CacheResponseMixin, viewsets.GenericViewSet,
+    mixins.ListModelMixin, mixins.RetrieveModelMixin
+):
     """
     list:
         商品分类列表数据
