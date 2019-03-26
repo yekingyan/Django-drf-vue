@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_extensions.cache.mixins import CacheResponseMixin
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 from .models import (
     Goods,
@@ -44,6 +45,8 @@ class GoodsListViewSet(
     retrieve:
         商品详情
     """
+    # 局部限流
+    throttle_classes = (UserRateThrottle, AnonRateThrottle)
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     # 设置filter，django-filter过滤，DRF的filter搜索

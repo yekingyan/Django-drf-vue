@@ -159,6 +159,19 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',  # token
     ),
+
+    # 全局限流
+    'DEFAULT_THROTTLE_CLASSES': (
+        # 只会限制未经认证的用户（请求的 IP 地址）
+        'rest_framework.throttling.AnonRateThrottle',
+        # 登陆用户
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    # 限速的策略
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '30/minute',
+        'user': '1000/day'
+    }
 }
 
 # url 可以不加斜杠结尾
