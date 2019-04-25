@@ -1,6 +1,7 @@
 .idea
 log.txt
 .idea/*
+.vscode
 venv
 VUE/vueJS/.idea
 VUE/vueJS/.idea/*
