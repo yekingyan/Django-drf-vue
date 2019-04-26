@@ -1,0 +1,45 @@
+version: "3"
+services:
+
+  mysql:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file:
+      - ./deploy/.env
+    volumes:
+      - ~/dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  web:
+    build: ./demo/
+    command: bash -c "python manage.py migrate && python manage.py runserver 8000"
+    depends_on:
+      - mysql
+      - reids
+    volumes:
+      - .:/app
+    restart: always
+    external_links:
+      - redis
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./online-store/
+    command: bash -c "yarn run install && yarn build --prod"
+    restart: always
+    ports:
+      - "8080:8080"
+
+  nginx:
+    image: nginx:1.15-alpine
+    restart: always
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/nginx.conf
+      - ./deploy/uwsgi_params:/etc/nginx/uwsgi_params
+    depends_on:
+      - web
+      - frontend
+    prots:
+      - "80:80"
