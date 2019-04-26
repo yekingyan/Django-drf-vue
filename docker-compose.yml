@@ -13,7 +13,7 @@ services:
 
   web:
     build: ./demo/
-    command: bash -c "python manage.py migrate && python manage.py runserver 8000"
+    command: bash -c "python manage.py migrate && uwsgi --ini /etc/uwsgi.ini"
     depends_on:
       - mysql
       - reids
